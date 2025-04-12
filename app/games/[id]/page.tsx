@@ -1,4 +1,9 @@
-export default function GamePage({ params }: { params: { id: string } }) {
+export default function GamePage({
+  params,
+}: {
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto max-w-5xl px-4 py-8">
