@@ -4,6 +4,7 @@
 
 [build.environment]
   NEXT_PUBLIC_BASE_URL = "https://ovov-web.netlify.app"
+  NODE_VERSION = "20.11.1"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs" 
