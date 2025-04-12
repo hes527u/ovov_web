@@ -7,11 +7,13 @@ export const metadata: Metadata = {
 
 export default async function GamePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const resolvedParams = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
   
   return (
     <div className="min-h-screen bg-gray-100">

@@ -8,10 +8,12 @@ import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
+  params: Promise<{}>;
 }) {
   return (
     <html lang="en">
