@@ -69,11 +69,7 @@ const games: GameItem[] = [
   }
 ].sort((a, b) => a.order - b.order);  // order 기준으로 정렬
 
-type PageProps = {
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
-export default function Home({ searchParams }: PageProps) {
+export default function Home() {
   const { language } = useLanguage();
   const t = translations[language];
 
