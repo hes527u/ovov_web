@@ -1,6 +1,5 @@
 'use client';
 
-import Image from "next/image";
 import GameCard from '@/app/components/GameCard';
 import { GameItem, Genre } from '@/app/types';
 import { useLanguage } from '@/app/contexts/LanguageContext';

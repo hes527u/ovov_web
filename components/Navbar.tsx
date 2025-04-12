@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '../app/contexts/LanguageContext';
-import { translations, Language } from '../app/i18n/translations';
 
 export default function Navbar() {
   const { language, setLanguage } = useLanguage();

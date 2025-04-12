@@ -1,12 +1,9 @@
 'use client';
 
 import { useLanguage } from '@/app/contexts/LanguageContext';
-import { translations } from '@/app/i18n/translations';
-import Image from 'next/image';
 
 export default function Profile() {
   const { language } = useLanguage();
-  const t = translations[language];
 
   return (
     <div className="min-h-screen bg-gray-100">

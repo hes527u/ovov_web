@@ -1,12 +1,15 @@
 'use client';
 
-import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { ReactNode } from 'react';
 
 export default function GameLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div className="min-h-screen bg-gray-100">
+      {children}
+    </div>
+  );
 } 
