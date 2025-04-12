@@ -1,4 +1,11 @@
-export default function GamePage({
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '게임 상세',
+  description: '게임 상세 정보를 확인하세요',
+};
+
+export default async function GamePage({
   params,
 }: {
   params: { id: string };
