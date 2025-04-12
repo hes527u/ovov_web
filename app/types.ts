@@ -10,6 +10,10 @@ export interface GameItem {
   };
   genre: Genre;
   thumbnailUrl: string;
+  metadata?: {
+    title?: string;
+    description?: string;
+  };
 }
 
 export const genreStyles: Record<Genre, { bg: string; text: string }> = {

@@ -16,7 +16,11 @@ const games: GameItem[] = [
       EN: "Conjoin dices and blast them, you can make it! A simple yet addictive puzzle game that will keep you entertained for hours."
     },
     genre: "puzzle" as Genre,
-    thumbnailUrl: "/next.svg"
+    thumbnailUrl: "/next.svg",
+    metadata: {
+      title: "Dice Blast - Fun Puzzle Game",
+      description: "A simple yet addictive puzzle game that will keep you entertained for hours."
+    }
   },
   {
     id: "color_match",
@@ -27,7 +31,11 @@ const games: GameItem[] = [
       EN: "Match colors in this exciting puzzle adventure. Connect similar colors and create amazing combinations!"
     },
     genre: "puzzle" as Genre,
-    thumbnailUrl: "/vercel.svg"
+    thumbnailUrl: "/vercel.svg",
+    metadata: {
+      title: "Color Match - Puzzle Adventure",
+      description: "Match colors in this exciting puzzle adventure. Connect similar colors and create amazing combinations!"
+    }
   },
   {
     id: "space_runner",
@@ -38,7 +46,11 @@ const games: GameItem[] = [
       EN: "Run through space, avoid obstacles and collect power-ups in this fast-paced action game."
     },
     genre: "action" as Genre,
-    thumbnailUrl: "/globe.svg"
+    thumbnailUrl: "/globe.svg",
+    metadata: {
+      title: "Space Runner - Action Game",
+      description: "Run through space, avoid obstacles and collect power-ups in this fast-paced action game."
+    }
   },
   {
     id: "mind_tactics",
@@ -49,11 +61,19 @@ const games: GameItem[] = [
       EN: "Strategic thinking game that challenges your mind. Plan your moves and outsmart your opponents."
     },
     genre: "strategy" as Genre,
-    thumbnailUrl: "/file.svg"
+    thumbnailUrl: "/file.svg",
+    metadata: {
+      title: "Mind Tactics - Strategy Game",
+      description: "Strategic thinking game that challenges your mind. Plan your moves and outsmart your opponents."
+    }
   }
 ].sort((a, b) => a.order - b.order);  // order 기준으로 정렬
 
-export default function Home() {
+type PageProps = {
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+
+export default function Home({ searchParams }: PageProps) {
   const { language } = useLanguage();
   const t = translations[language];
 
