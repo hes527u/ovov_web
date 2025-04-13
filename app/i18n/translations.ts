@@ -8,6 +8,7 @@ type TranslationType = {
     subtitle: string;
   };
   genres: Record<Genre, string>;
+  updateHistory: string;
 };
 
 export const translations: Record<Language, TranslationType> = {
@@ -22,6 +23,7 @@ export const translations: Record<Language, TranslationType> = {
       strategy: '전략',
       rpg: 'RPG',
     },
+    updateHistory: '업데이트 내역',
   },
   EN: {
     header: {
@@ -34,5 +36,6 @@ export const translations: Record<Language, TranslationType> = {
       strategy: 'Strategy',
       rpg: 'RPG',
     },
+    updateHistory: 'Update History',
   },
 }; 

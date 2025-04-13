@@ -4,74 +4,32 @@ import GameCard from '@/app/components/GameCard';
 import { GameItem, Genre } from '@/app/types';
 import { useLanguage } from '@/app/contexts/LanguageContext';
 import { translations } from '@/app/i18n/translations';
-
-// 임시 데이터
-const games: GameItem[] = [
-  {
-    id: "dice_blast",
-    order: 1,
-    title: "Dice Blast",
-    descriptions: {
-      KR: "주사위를 합치고 터트려보세요! 간단하지만 중독성 있는 퍼즐 게임이 여러분을 즐겁게 할 거예요.",
-      EN: "Conjoin dices and blast them, you can make it! A simple yet addictive puzzle game that will keep you entertained for hours."
-    },
-    genre: "puzzle" as Genre,
-    thumbnailUrl: "/next.svg",
-    metadata: {
-      title: "Dice Blast - Fun Puzzle Game",
-      description: "A simple yet addictive puzzle game that will keep you entertained for hours."
-    }
-  },
-  {
-    id: "color_match",
-    order: 2,
-    title: "Color Match",
-    descriptions: {
-      KR: "신나는 퍼즐 어드벤처에서 색상을 맞춰보세요. 비슷한 색상을 연결하여 놀라운 조합을 만들어보세요!",
-      EN: "Match colors in this exciting puzzle adventure. Connect similar colors and create amazing combinations!"
-    },
-    genre: "puzzle" as Genre,
-    thumbnailUrl: "/vercel.svg",
-    metadata: {
-      title: "Color Match - Puzzle Adventure",
-      description: "Match colors in this exciting puzzle adventure. Connect similar colors and create amazing combinations!"
-    }
-  },
-  {
-    id: "space_runner",
-    order: 3,
-    title: "Space Runner",
-    descriptions: {
-      KR: "우주를 달리며 장애물을 피하고 파워업 아이템을 모으세요. 빠른 템포의 액션 게임입니다.",
-      EN: "Run through space, avoid obstacles and collect power-ups in this fast-paced action game."
-    },
-    genre: "action" as Genre,
-    thumbnailUrl: "/globe.svg",
-    metadata: {
-      title: "Space Runner - Action Game",
-      description: "Run through space, avoid obstacles and collect power-ups in this fast-paced action game."
-    }
-  },
-  {
-    id: "mind_tactics",
-    order: 4,
-    title: "Mind Tactics",
-    descriptions: {
-      KR: "전략적 사고가 필요한 게임입니다. 움직임을 계획하고 상대방을 능가해보세요.",
-      EN: "Strategic thinking game that challenges your mind. Plan your moves and outsmart your opponents."
-    },
-    genre: "strategy" as Genre,
-    thumbnailUrl: "/file.svg",
-    metadata: {
-      title: "Mind Tactics - Strategy Game",
-      description: "Strategic thinking game that challenges your mind. Plan your moves and outsmart your opponents."
-    }
-  }
-].sort((a, b) => a.order - b.order);  // order 기준으로 정렬
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const { language } = useLanguage();
   const t = translations[language];
+  const [games, setGames] = useState<GameItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await fetch('/api/games');
+        if (!response.ok) {
+          throw new Error('Failed to fetch games');
+        }
+        const data = await response.json();
+        setGames(data.sort((a: GameItem, b: GameItem) => a.order - b.order));
+      } catch (error) {
+        console.error('Error fetching games:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGames();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -100,13 +58,19 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 메인 콘텐츠 영역 */}
+      {/* 게임 카드 영역 */}
       <div className="container mx-auto max-w-5xl px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
-          {games.map(game => (
-            <GameCard key={game.id} game={game} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {games.map((game) => (
+              <GameCard key={game.id} game={game} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
