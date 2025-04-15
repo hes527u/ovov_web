@@ -1,13 +1,10 @@
 import { NextResponse } from 'next/server';
 import { games } from '@/app/data/games';
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-export async function GET(request: Request, { params }: Props) {
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const gameId = params.id;
     const game = games.find((game) => game.id === gameId);
