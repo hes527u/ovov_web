@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { games } from '@/app/data/games';
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
-    const gameId = params.id;
+    const gameId = context.params.id;
     const game = games.find((game) => game.id === gameId);
 
     if (!game) {
