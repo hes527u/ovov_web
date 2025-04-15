@@ -4,7 +4,7 @@ import { GameItem, genreStyles } from '@/app/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/app/contexts/LanguageContext';
-import { translations } from '@/app/i18n/translations';
+import { translations, GameId } from '@/app/i18n/translations';
 
 export default function GameCard({ game }: { game: GameItem }) {
   const { language } = useLanguage();
@@ -22,7 +22,7 @@ export default function GameCard({ game }: { game: GameItem }) {
         <div className="relative h-40 sm:h-44 lg:h-48 bg-gray-200">
           <Image
             src={game.thumbnailUrl}
-            alt={game.title}
+            alt={t.game.titles[game.id as GameId]}
             fill
             className="object-cover"
           />
@@ -36,7 +36,7 @@ export default function GameCard({ game }: { game: GameItem }) {
           </span>
           
           {/* 제목 */}
-          <h2 className="text-lg sm:text-xl font-bold mb-2 text-black">{game.title}</h2>
+          <h2 className="text-lg sm:text-xl font-bold mb-2 text-black">{t.game.titles[game.id as GameId]}</h2>
           
           {/* 설명 */}
           <p className="text-xs sm:text-sm text-gray-600 line-clamp-3">

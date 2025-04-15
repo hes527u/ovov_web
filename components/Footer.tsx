@@ -25,14 +25,14 @@ export default function Footer() {
             <FaGithub className="w-5 h-5" />
           </Link>
           <Link 
-            href="https://x.com/ovovhes" 
+            href="https://x.com/ovoveuni" 
             target="_blank"
             className="text-gray-400 hover:text-gray-600 transition-colors"
           >
             <FaSquareXTwitter className="w-5 h-5" />
           </Link>
           <Link 
-            href="https://www.instagram.com/ovovhes/" 
+            href="https://www.instagram.com/ovoveuni/" 
             target="_blank"
             className="text-gray-400 hover:text-gray-600 transition-colors"
           >
@@ -47,7 +47,7 @@ export default function Footer() {
           </Link>
         </div>
         <div className="pb-8 text-center">
-          <p className="text-sm text-gray-400">© 2025 은성. All rights reserved.</p>
+          <p className="text-sm text-gray-400">© 2025 ovoveuni. All rights reserved.</p>
         </div>
       </div>
     </footer>

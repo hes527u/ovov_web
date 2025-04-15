@@ -3,11 +3,13 @@ import { games } from '@/app/data/games';
 
 export async function GET(
   request: Request,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const game = games.find((g) => g.id === context.params.id);
+  const game = games.find((game) => game.id === params.id);
+
   if (!game) {
     return NextResponse.json({ error: 'Game not found' }, { status: 404 });
   }
+
   return NextResponse.json(game);
 } 

@@ -1,12 +1,16 @@
-'use client';
-
+import type { Metadata } from 'next';
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/Navbar";
+import Navbar from "@/components/Navbar";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: 'OVOV Games',
+  description: 'OVOV Games - Game Development Studio',
+};
 
 export default function RootLayout({
   children,

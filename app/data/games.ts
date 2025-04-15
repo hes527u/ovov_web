@@ -11,6 +11,13 @@ export const games: GameItem[] = [
     },
     genre: 'puzzle',
     thumbnailUrl: '/games/dice-blast/thumbnail.png',
+    contentUrl: '/unity-games/dice-blast',
+    contentType: 'game',
+    // externalLinks: {
+      // playStore: 'https://play.google.com/store/apps/details?id=com.ovov.diceblast',
+      // steam: 'https://store.steampowered.com/app/diceblast',
+      // itch: 'https://ovov.itch.io/dice-blast'
+    // },
     metadata: {
       title: 'Dice Blast',
       description: 'Roll dice and score points!'

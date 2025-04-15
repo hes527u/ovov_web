@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* 헤더 영역 */}
-      <div className="relative h-80 bg-gray-300">
+      <div className="relative h-80 bg-gray-200">
         {/* 이미지 영역 (배경으로 설정) */}
         <div className="absolute inset-0 bg-gradient-to-r from-gray-400 to-gray-300">
           {/* 이미지는 여기에 추가하시면 됩니다:
