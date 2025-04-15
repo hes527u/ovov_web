@@ -3,10 +3,10 @@ import { games } from '@/app/data/games';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
-    const gameId = params.id;
+    const gameId = context.params.id;
     const game = games.find((game) => game.id === gameId);
 
     if (!game) {
@@ -15,6 +15,7 @@ export async function GET(
 
     return NextResponse.json(game);
   } catch (error) {
+    console.error('Error fetching game:', error);
     return NextResponse.json({ error: '게임을 찾을 수 없습니다.' }, { status: 404 });
   }
 } 
