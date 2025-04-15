@@ -59,7 +59,16 @@ type TranslationType = {
   };
 };
 
-const common = {
+type TranslationValue = {
+  KR: string;
+  EN: string;
+};
+
+type TranslationObject = {
+  [key: string]: TranslationValue | TranslationObject | { KR: unknown; EN: unknown };
+};
+
+const common: TranslationObject = {
   header: {
     title: { KR: 'ovov games', EN: 'ovov games' },
     subtitle: { KR: '다운로드 없는 무료 웹 게임', EN: 'download-free web games' }
@@ -221,28 +230,31 @@ const game = {
   }
 };
 
-const getTranslation = (obj: any, lang: Language) => {
+const getTranslation = (obj: unknown, lang: Language): unknown => {
   if (typeof obj === 'object' && obj !== null) {
-    if (obj.KR !== undefined && obj.EN !== undefined) {
+    if ('KR' in obj && 'EN' in obj) {
+      if (Array.isArray(obj[lang])) {
+        return obj[lang];
+      }
       return obj[lang];
     }
-    const result: any = {};
-    for (const key in obj) {
-      result[key] = getTranslation(obj[key], lang);
+    const result: Record<string, unknown> = {};
+    for (const key in obj as Record<string, unknown>) {
+      result[key] = getTranslation((obj as Record<string, unknown>)[key], lang);
     }
     return result;
   }
   return obj;
 };
 
-const createTranslations = (lang: Language) => {
-  const result: any = {};
-  result.header = getTranslation(common.header, lang);
-  result.genres = getTranslation(common.genres, lang);
-  result.updateHistory = getTranslation(common.updateHistory, lang);
-  result.navigation = getTranslation(common.navigation, lang);
-  result.profile = getTranslation(profile, lang);
-  result.game = getTranslation(game, lang);
+const createTranslations = (lang: Language): TranslationType => {
+  const result: Partial<TranslationType> = {};
+  result.header = getTranslation(common.header, lang) as TranslationType['header'];
+  result.genres = getTranslation(common.genres, lang) as TranslationType['genres'];
+  result.updateHistory = getTranslation(common.updateHistory, lang) as string;
+  result.navigation = getTranslation(common.navigation, lang) as TranslationType['navigation'];
+  result.profile = getTranslation(profile, lang) as TranslationType['profile'];
+  result.game = getTranslation(game, lang) as TranslationType['game'];
   return result as TranslationType;
 };
 

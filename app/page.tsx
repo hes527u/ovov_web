@@ -1,7 +1,7 @@
 'use client';
 
 import GameCard from '@/app/components/GameCard';
-import { GameItem, Genre } from '@/app/types';
+import { GameItem } from '@/app/types';
 import { useLanguage } from '@/app/contexts/LanguageContext';
 import { translations } from '@/app/i18n/translations';
 import { useEffect, useState } from 'react';

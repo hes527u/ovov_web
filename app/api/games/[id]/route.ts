@@ -1,13 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { games } from '@/app/data/games';
 
+type RouteContext = {
+  params: Promise<{ id: string }>
+}
+
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: RouteContext
 ) {
   try {
-    const gameId = params.id;
-    const game = games.find((game) => game.id === gameId);
+    const { id } = await context.params;
+    const game = games.find((game) => game.id === id);
 
     if (!game) {
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });
@@ -18,4 +22,4 @@ export async function GET(
     console.error('Error fetching game:', error);
     return NextResponse.json({ error: '게임을 찾을 수 없습니다.' }, { status: 404 });
   }
-} 
+}
