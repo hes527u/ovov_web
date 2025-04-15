@@ -28,18 +28,6 @@ body {
   overscroll-behavior: none;
 }
 
-/* 카카오톡 인앱 브라우저 대응 */
-@supports (-webkit-touch-callout: none) {
-  html {
-    height: -webkit-fill-available;
-  }
-  
-  body {
-    height: -webkit-fill-available;
-    min-height: -webkit-fill-available;
-  }
-}
-
 /* 모바일 확대 방지 */
 html {
   touch-action: manipulation;
@@ -50,9 +38,14 @@ html {
   text-size-adjust: 100%;
   height: 100%;
   overflow-x: hidden;
-  position: fixed;
-  width: 100%;
+}
+
+body {
+  touch-action: manipulation;
   -webkit-overflow-scrolling: touch;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* 게임 컨테이너 */
@@ -63,13 +56,10 @@ html {
   will-change: transform;
   position: relative;
   z-index: 1;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: none;
 }
 
 /* 모바일 터치 이벤트 방지 */
 * {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
-  touch-action: manipulation;
 }
