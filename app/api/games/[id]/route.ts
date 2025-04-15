@@ -1,15 +1,20 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { games } from '@/app/data/games';
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const game = games.find((game) => game.id === params.id);
+  try {
+    const gameId = params.id;
+    const game = games.find((game) => game.id === gameId);
 
-  if (!game) {
-    return NextResponse.json({ error: 'Game not found' }, { status: 404 });
+    if (!game) {
+      return NextResponse.json({ error: 'Game not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(game);
+  } catch (error) {
+    return NextResponse.json({ error: '게임을 찾을 수 없습니다.' }, { status: 404 });
   }
-
-  return NextResponse.json(game);
 } 
