@@ -6,7 +6,6 @@ import { translations, GameId } from '@/app/i18n/translations';
 import { use } from 'react';
 import { IoIosPricetag } from 'react-icons/io';
 import { useEffect, useState } from 'react';
-import { Unity, useUnityContext } from 'react-unity-webgl';
 import Image from 'next/image';
 import YouTube from 'react-youtube';
 import { FaGooglePlay, FaSteam } from 'react-icons/fa';
@@ -22,19 +21,8 @@ export default function GamePage({ params }: PageProps) {
   const resolvedParams = use(params);
   const [game, setGame] = useState<GameItem | null>(null);
   const [loading, setLoading] = useState(true);
-
-  const unityConfig = {
-    loaderUrl: `/unity-games/${resolvedParams.id}/Build/dice-blast.loader.js`,
-    dataUrl: `/unity-games/${resolvedParams.id}/Build/dice-blast.data`,
-    frameworkUrl: `/unity-games/${resolvedParams.id}/Build/dice-blast.framework.js`,
-    codeUrl: `/unity-games/${resolvedParams.id}/Build/dice-blast.wasm`,
-    streamingAssetsUrl: `/unity-games/${resolvedParams.id}/StreamingAssets`,
-    companyName: 'ovov',
-    productName: 'Dice Blast',
-    productVersion: '0.0.1',
-  };
-
-  const { unityProvider, isLoaded, loadingProgression } = useUnityContext(unityConfig);
+  const [iframeError, setIframeError] = useState(false);
+  const [iframeLoading, setIframeLoading] = useState(true);
 
   useEffect(() => {
     const fetchGame = async () => {
@@ -55,6 +43,22 @@ export default function GamePage({ params }: PageProps) {
     fetchGame();
   }, [resolvedParams.id]);
 
+  // 언어 변경 감지
+  useEffect(() => {
+    if (!iframeLoading && game?.contentType === 'game') {
+      const iframe = document.querySelector('iframe');
+      if (iframe?.contentWindow) {
+        const unityLanguage = language === 'KR' ? 'ko' : 'en';
+        console.log('Language changed, sending to Unity:', unityLanguage);
+        const message = {
+          type: 'SET_LANGUAGE',
+          language: unityLanguage
+        };
+        iframe.contentWindow.postMessage(message, 'https://dice-blast.netlify.app');
+      }
+    }
+  }, [language, iframeLoading, game?.contentType]);
+
   const renderContent = (contentType: GameContentType) => {
     if (!game) return null;
 
@@ -62,23 +66,47 @@ export default function GamePage({ params }: PageProps) {
       case 'game':
         return (
           <div className="relative w-full h-full">
-            {!isLoaded && (
+            {iframeLoading && (
               <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900 mb-4"></div>
-                  <p className="text-gray-600">Loading... {Math.round(loadingProgression * 100)}%</p>
+                  <p className="text-gray-600">게임을 불러오는 중...</p>
                 </div>
               </div>
             )}
-            <Unity
-              unityProvider={unityProvider}
-              style={{
-                width: '100%',
-                height: '100%',
-                border: 'none',
-                background: 'transparent'
-              }}
-            />
+            {iframeError ? (
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                <div className="text-center">
+                  <p className="text-red-600">게임을 불러올 수 없습니다.</p>
+                  <p className="text-gray-600 text-sm mt-2">잠시 후 다시 시도해주세요.</p>
+                </div>
+              </div>
+            ) : (
+              <iframe
+                src={`https://${resolvedParams.id}.netlify.app`}
+                className="w-full h-full border-0"
+                allow="fullscreen"
+                loading="lazy"
+                onLoad={(e) => {
+                  setIframeLoading(false);
+                  const iframe = e.target as HTMLIFrameElement;
+                  if (iframe.contentWindow) {
+                    // 웹의 언어 코드를 Unity의 언어 코드로 변환
+                    const unityLanguage = language === 'KR' ? 'ko' : 'en';
+                    console.log('Sending language to Unity:', unityLanguage);
+                    const message = {
+                      type: 'SET_LANGUAGE',
+                      language: unityLanguage
+                    };
+                    iframe.contentWindow.postMessage(message, 'https://dice-blast.netlify.app');
+                  }
+                }}
+                onError={() => {
+                  setIframeLoading(false);
+                  setIframeError(true);
+                }}
+              />
+            )}
           </div>
         );
       case 'thumbnail':
@@ -149,11 +177,9 @@ export default function GamePage({ params }: PageProps) {
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto max-w-5xl px-4 py-8">
         {/* 컨텐츠 영역 */}
-        <div className="w-full h-[calc(100vh-12rem)] min-h-[400px] max-h-[800px] bg-transparent rounded-lg overflow-hidden mb-8 relative">
+        <div className="w-full h-[calc(100vh-12rem)] min-h-[400px] max-h-[800px] bg-transparent rounded-lg overflow-hidden mb-2 relative">
           <div className="absolute inset-0 top-[64px] flex items-center justify-center">
-            <div className="relative w-full h-full max-w-[1024px] mx-auto">
-              {renderContent(game.contentType)}
-            </div>
+            {renderContent(game.contentType)}
           </div>
         </div>
 
