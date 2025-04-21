@@ -55,6 +55,7 @@ type TranslationType = {
   game: {
     notFound: string;
     loading: string;
+    retry: string;
     externalLinks: {
       playStore: string;
       steam: string;
@@ -179,7 +180,7 @@ type TranslationObject = {
 
 const common: TranslationObject = {
   header: {
-    title: { KR: 'ovov games', EN: 'ovov games' },
+    title: { KR: 'play! ovov', EN: 'play! ovov' },
     subtitle: { KR: '다운로드 없는 무료 웹 게임', EN: 'download-free web games' }
   },
   genres: {
@@ -225,8 +226,8 @@ const PROJECTS = {
 
 const POSITIONS = {
   OVOV: {
-    KR: 'ovov games',
-    EN: 'ovov games'
+    KR: '???',
+    EN: '???'
   },
   NEXON: {
     KR: '넥슨',
@@ -237,8 +238,8 @@ const POSITIONS = {
     EN: 'Krafton'
   },
   STUDIO17: {
-    KR: '스튜디오17 (인디)',
-    EN: 'Studio17 (Indie)'
+    KR: '스튜디오17',
+    EN: 'Studio17'
   }
 };
 
@@ -267,7 +268,7 @@ Please feel free to talk to me! :>`
     data: {
       KR: [
         {
-          year: '2025-Planning',
+          year: 'Planning',
           company: POSITIONS.OVOV.KR,
           projects: [
             PROJECTS.DICE_BLAST.KR
@@ -298,7 +299,7 @@ Please feel free to talk to me! :>`
       ],
       EN: [
         {
-          year: '2025-Planning',
+          year: 'Planning',
           company: POSITIONS.OVOV.EN,
           projects: [
             PROJECTS.DICE_BLAST.EN
@@ -334,6 +335,7 @@ Please feel free to talk to me! :>`
 const game = {
   notFound: { KR: '게임을 찾을 수 없습니다.', EN: 'Game not found' },
   loading: { KR: '로딩 중...', EN: 'Loading...' },
+  retry: { KR: '잠시 후 다시 시도해주세요.', EN: 'Please try again later.' },
   externalLinks: {
     playStore: { KR: 'Play Store', EN: 'Play Store' },
     steam: { KR: 'Steam', EN: 'Steam' },

@@ -68,17 +68,17 @@ export default function GamePage({ params }: PageProps) {
           <div className="relative w-full h-full">
             {iframeLoading && (
               <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-                <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900 mb-4"></div>
-                  <p className="text-gray-600">게임을 불러오는 중...</p>
+                <div className="flex flex-col items-center justify-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+                  <p className="text-gray-600 mt-4">{t.game.loading}</p>
                 </div>
               </div>
             )}
             {iframeError ? (
               <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
                 <div className="text-center">
-                  <p className="text-red-600">게임을 불러올 수 없습니다.</p>
-                  <p className="text-gray-600 text-sm mt-2">잠시 후 다시 시도해주세요.</p>
+                  <p className="text-red-600">{t.game.notFound}</p>
+                  <p className="text-gray-600 text-sm mt-2">{t.game.retry}</p>
                 </div>
               </div>
             ) : (
@@ -148,8 +148,8 @@ export default function GamePage({ params }: PageProps) {
   // 임시 업데이트 내역
   const updateHistory = [
     {
-      date: "2024-04-13",
-      version: "0.0.1",
+      date: "2025-04-21",
+      version: "1.0.0",
       content: {
         KR: "게임 최초 출시",
         EN: "Initial game release"

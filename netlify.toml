@@ -3,7 +3,7 @@
   publish = ".next"
 
 [build.environment]
-  NEXT_PUBLIC_BASE_URL = "https://ovov-web.netlify.app"
+  NEXT_PUBLIC_BASE_URL = "https://playovov.com"
   NODE_VERSION = "20.11.1"
 
 [[plugins]]

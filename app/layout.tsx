@@ -8,8 +8,8 @@ import Footer from '@/components/Footer';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'ovov games',
-  description: 'ovov games - download free web games',
+  title: 'playovov',
+  description: 'playovov - download free web games',
 };
 
 export default function RootLayout({

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "OVOV Web",
-  description: "OVOV Web Application",
+  title: "playovov",
+  description: "playovov - download free web games",
 }; 

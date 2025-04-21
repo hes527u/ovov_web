@@ -6,8 +6,8 @@ import Navbar from '../components/Navbar'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'OVOV Web',
-  description: 'OVOV Web Application',
+  title: 'playovov',
+  description: 'playovov - download free web games',
 }
 
 export default function RootLayout({

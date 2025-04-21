@@ -40,7 +40,7 @@ export default function Home() {
           {/* 이미지는 여기에 추가하시면 됩니다:
               <Image
                 src="/header-image.jpg"
-                alt="OVOV Games Header"
+                alt="playovov Header"
                 fill
                 className="object-cover"
               /> 
