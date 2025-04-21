@@ -4,12 +4,17 @@ import Link from 'next/link';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { SiTistory } from 'react-icons/si';
+import { useLanguage } from '../app/contexts/LanguageContext';
+import { translations } from '../app/i18n/translations';
 
 export default function Footer() {
+  const { language } = useLanguage();
+  const t = translations[language].footer;
+
   return (
     <footer className="w-full" style={{ background: 'var(--background)' }}>
       <div className="max-w-7xl mx-auto px-4">
-        <div className="py-8 flex justify-center items-center space-x-8">
+        <div className="py-4 flex justify-center items-center space-x-8">
           <Link 
             href="https://hes527u.tistory.com" 
             target="_blank"
@@ -44,6 +49,26 @@ export default function Footer() {
             className="text-gray-400 hover:text-gray-600 transition-colors"
           >
             <FaLinkedin className="w-5 h-5" />
+          </Link>
+        </div>
+        <div className="py-2 flex justify-center items-center space-x-6">
+          <Link 
+            href="/privacy-policy" 
+            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            {t.privacyPolicy}
+          </Link>
+          <Link 
+            href="/terms-of-service" 
+            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            {t.termsOfService}
+          </Link>
+          <Link 
+            href="/contact" 
+            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            {t.contact}
           </Link>
         </div>
         <div className="pb-8 text-center">
