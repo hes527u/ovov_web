@@ -82,6 +82,7 @@ type TranslationType = {
           device: string;
           performance: string;
         };
+        purpose: string;
       };
       advertising: {
         title: string;
