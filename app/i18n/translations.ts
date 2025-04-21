@@ -92,6 +92,7 @@ type TranslationType = {
           device: string;
           location: string;
         };
+        purpose: string;
       };
       purpose: {
         title: string;
